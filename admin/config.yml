@@ -1,11 +1,9 @@
 backend:
-  name: auth0
-  domain: dev-ledqz606i2aipjyh.us.auth0.com     # replace with Auth0 domain
-  client_id: JPeiSOBKOrGZQmKywY8bn9TU2OfXqjwY # replace with Auth0 client ID  
-  branch: main  # your branch name
+  name: git-gateway
+  branch: main
 
-media_folder: "assets/uploads"    # where images are stored
-public_folder: "/assets/uploads"  # folder for browser access
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
 
 collections:
   - name: "posts"
