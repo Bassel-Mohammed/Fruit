@@ -2,8 +2,28 @@ title:              عافيتك
 email:              
 description:         منشورات و مواضيع متنوعة تساهم في تحسين  حياتك و صحتك
 author:             Afytk
-baseurl:            "/Afytk"
-url:                "https://examplee2.com"
+baseurl:            ""                  # empty for root deploy
+url:                "https://afytkblog.netlify.app"
+
+# Social Profiles
+twitter_username:   Aftyk_X
+github_username:    
+facebook_username:  
+instagram_username:  Afytk_IG
+linkedin_username:
+
+# Google Analytics
+google_analytics:   G-7JWPV278TJ
+
+# Build settings
+markdown:           kramdown
+paginate:           5
+paginate_path:      "/posts/page:num/"
+plugins:
+  - jekyll-feed
+  - jekyll-paginate
+  - jekyll-sitemap
+
 
 # Social Profiles
 twitter_username:   Aftyk_X
