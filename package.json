@@ -1,5 +1,4 @@
 {
-    
   "title": "Afytek Blog",
   "name": "afytek-blog",
   "version": "1.0.0",
@@ -23,16 +22,22 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/YourUsername/Afytek.git"
+    "url": "git+https://github.com/YourUsername/Afytek.git"
   },
-
-    "dependencies": {
-        "bootstrap": "4.6.0",
-        "font-awesome": "4.7.0",
-        "jquery": "3.6.0",
-        "startbootstrap-clean-blog": "5.1.0"
-    },
-    "devDependencies": {
-        "browser-sync": "2.26.14"
-    }
+  "dependencies": {
+    "@tinacms/cli": "^1.10.3",
+    "@tinacms/git-client": "^0.43.0",
+    "bootstrap": "4.6.0",
+    "font-awesome": "4.7.0",
+    "jquery": "3.6.0",
+    "startbootstrap-clean-blog": "5.1.0",
+    "tinacms": "^2.8.3"
+  },
+  "devDependencies": {
+    "browser-sync": "2.26.14"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
 }

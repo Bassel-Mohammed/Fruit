@@ -1,69 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Afytk CMS</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-    #tina-root { padding: 20px; }
-  </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Content Manager</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/netlify-cms@^1.0/dist/cms.css" />
+
+  <script src="https://identity-js.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
-
-  <div id="tina-root">Loading CMS...</div>
-
-  <!-- React & ReactDOM -->
-  <script src="https://unpkg.com/react/umd/react.production.min.js"></script>
-  <script src="https://unpkg.com/react-dom/umd/react-dom.production.min.js"></script>
-
-  <!-- TinaCMS -->
-  <script src="https://unpkg.com/tinacms/dist/tinacms.min.js"></script>
-
-  <!-- Auth0 SPA SDK -->
-  <script src="https://cdn.auth0.com/js/auth0-spa-js/1.28/auth0-spa-js.production.js"></script>
-
-  <script>
-    (async () => {
-      // Auth0 configuration
-      const auth0 = await createAuth0Client({
-        domain: "YOUR_AUTH0_DOMAIN",        // Replace with your Auth0 domain
-        client_id: "YOUR_AUTH0_CLIENT_ID",  // Replace with your Auth0 client ID
-        redirect_uri: window.location.origin + "/admin/"
-      });
-
-      // Handle redirect after login
-      if (window.location.search.includes("code=") && window.location.search.includes("state=")) {
-        await auth0.handleRedirectCallback();
-        window.history.replaceState({}, document.title, "/admin/");
-      }
-
-      // If not authenticated, redirect to Auth0 login
-      if (!await auth0.isAuthenticated()) {
-        await auth0.loginWithRedirect();
-        return;
-      }
-
-      // Get Auth0 token
-      const token = await auth0.getTokenSilently();
-
-      // Initialize TinaCMS
-      const cms = new TinaCMS({
-        sidebar: true,
-        toolbar: true,
-        enabled: true,
-        apiClient: {
-          token: token
-        }
-      });
-
-      // Mount TinaCMS UI
-      TinaCMS.mount(document.getElementById("tina-root"), cms);
-      console.log("TinaCMS ready! Auth0 token:", token);
-
-      // Optional: add your content editing logic here
-    })();
-  </script>
-
+  <script src="https://unpkg.com/netlify-cms@^1.0/dist/cms.js"></script>
 </body>
 </html>
