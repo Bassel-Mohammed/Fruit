@@ -1,73 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
   <title>Afytk CMS</title>
+
+  <!-- Netlify CMS -->
+  <script src="https://unpkg.com/netlify-cms-app@^2.0.0/dist/netlify-cms.js"></script>
+
+  <!-- Netlify Identity Widget -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
   <style>
     body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-    #tina-root { padding: 20px; }
+    #nc-root { padding: 20px; }
   </style>
 </head>
 <body>
-
-  <div id="tina-root">Loading CMS...</div>
-
-  <!-- React & ReactDOM -->
-  <script src="https://unpkg.com/react/umd/react.production.min.js"></script>
-  <script src="https://unpkg.com/react-dom/umd/react-dom.production.min.js"></script>
-
-  <!-- TinaCMS -->
-  <script src="https://unpkg.com/tinacms/dist/tinacms.min.js"></script>
-
-  <!-- Auth0 SPA SDK -->
-  <script src="https://cdn.auth0.com/js/auth0-spa-js/1.28/auth0-spa-js.production.js"></script>
+  <div id="nc-root"></div>
 
   <script>
-    (async () => {
-      // Fetch Auth0 config from Netlify Function
-      const res = await fetch("/.netlify/functions/auth0-config");
-      const config = await res.json();
+    // Initialize Netlify Identity
+    const identity = netlifyIdentity.init({
+      APIUrl: '/.netlify/identity'
+    });
 
-      if (!config.domain || !config.clientId) {
-        document.getElementById("tina-root").innerText = 
-          "Error: Auth0 config not found.";
-        return;
-      }
+    // Listen for login/logout events
+    netlifyIdentity.on('login', user => {
+      console.log('Logged in:', user);
+      netlifyIdentity.close(); // close the modal after login
+    });
 
-      const auth0 = await createAuth0Client({
-        domain: config.domain,
-        client_id: config.clientId,
-        redirect_uri: config.redirectUri
-      });
+    netlifyIdentity.on('logout', () => {
+      console.log('Logged out');
+    });
 
-      // Handle redirect callback
-      if (window.location.search.includes("code=") && window.location.search.includes("state=")) {
-        await auth0.handleRedirectCallback();
-        window.history.replaceState({}, document.title, "/admin/");
-      }
-
-      // Login if not authenticated
-      if (!await auth0.isAuthenticated()) {
-        await auth0.loginWithRedirect();
-        return; // wait for redirect
-      }
-
-      // Get JWT token
-      const token = await auth0.getTokenSilently();
-
-      // Initialize TinaCMS
-      const cms = new TinaCMS({
-        sidebar: true,
-        toolbar: true,
-        enabled: true,
-        apiClient: { token: token }
-      });
-
-      TinaCMS.mount(document.getElementById("tina-root"), cms);
-
-      console.log("CMS ready! Auth0 token:", token);
-    })();
+    // Open the modal automatically if visiting via invite link
+    if (window.location.hash.includes('invite_token')) {
+      identity.open();
+    }
   </script>
 </body>
 </html>
