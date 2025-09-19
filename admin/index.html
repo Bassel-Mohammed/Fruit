@@ -12,11 +12,9 @@
 
   <style>
     body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-    #nc-root { padding: 20px; }
   </style>
 </head>
 <body>
-  <div id="nc-root"></div>
 
   <script>
     // Initialize Netlify Identity
@@ -24,20 +22,13 @@
       APIUrl: '/.netlify/identity'
     });
 
-    // Listen for login/logout events
-    netlifyIdentity.on('login', user => {
-      console.log('Logged in:', user);
-      netlifyIdentity.close(); // close the modal after login
-    });
-
-    netlifyIdentity.on('logout', () => {
-      console.log('Logged out');
-    });
-
-    // Open the modal automatically if visiting via invite link
+    // Automatically open the modal if visiting via invite link
     if (window.location.hash.includes('invite_token')) {
       identity.open();
     }
+
+    // Initialize Netlify CMS after Identity
+    NetlifyCmsApp.init();
   </script>
 </body>
 </html>
