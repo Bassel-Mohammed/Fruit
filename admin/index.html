@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Afytk CMS</title>
   <style>
     body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
@@ -25,24 +25,23 @@
 
   <script>
     (async () => {
-      // Read Auth0 secrets from Netlify environment variables
-      const auth0Domain = '%AUTH0_DOMAIN%';
-      const auth0ClientId = '%AUTH0_CLIENT_ID%';
+      // Fetch Auth0 config from Netlify Function
+      const res = await fetch("/.netlify/functions/auth0-config");
+      const config = await res.json();
 
-      if (!auth0Domain || !auth0ClientId) {
+      if (!config.domain || !config.clientId) {
         document.getElementById("tina-root").innerText = 
-          "Error: Auth0 environment variables not set.";
+          "Error: Auth0 config not found.";
         return;
       }
 
-      // Initialize Auth0
       const auth0 = await createAuth0Client({
-        domain: auth0Domain,
-        client_id: auth0ClientId,
-        redirect_uri: window.location.origin + "/admin/"
+        domain: config.domain,
+        client_id: config.clientId,
+        redirect_uri: config.redirectUri
       });
 
-      // Handle redirect after login
+      // Handle redirect callback
       if (window.location.search.includes("code=") && window.location.search.includes("state=")) {
         await auth0.handleRedirectCallback();
         window.history.replaceState({}, document.title, "/admin/");
@@ -62,17 +61,13 @@
         sidebar: true,
         toolbar: true,
         enabled: true,
-        apiClient: {
-          token: token // pass Auth0 JWT if you plan to use a GitHub proxy
-        }
+        apiClient: { token: token }
       });
 
-      // Mount TinaCMS UI
       TinaCMS.mount(document.getElementById("tina-root"), cms);
 
       console.log("CMS ready! Auth0 token:", token);
     })();
   </script>
-
 </body>
 </html>
