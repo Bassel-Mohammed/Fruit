@@ -1,33 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
-  <title>Afytk CMS</title>
-
-  <!-- Netlify CMS -->
-   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  <!-- Netlify Identity Widget -->
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-
-  <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Content Manager</title>
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
-
-  <script>
-    // Initialize Netlify Identity
-    const identity = netlifyIdentity.init({
-      APIUrl: '/.netlify/identity'
-    });
-
-    // Automatically open the modal if visiting via invite link
-    if (window.location.hash.includes('invite_token')) {
-      identity.open();
-    }
-
-    // Initialize Netlify CMS after Identity
-    NetlifyCmsApp.init();
-  </script>
+<!-- Include the script that builds the page and powers Netlify CMS -->
+<script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
+</script>
 </body>
+
 </html>
