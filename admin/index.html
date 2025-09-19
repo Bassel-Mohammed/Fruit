@@ -1,14 +1,68 @@
-    <!doctype html>
-    <html>
-    <head>
-      <meta charset="utf-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Content Manager</title>
-    </head>
-    <body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Afytk CMS</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+    #tina-root { padding: 20px; }
+  </style>
+</head>
+<body>
 
+  <div id="tina-root">Loading CMS...</div>
 
+  <!-- React & ReactDOM -->
+  <script src="https://unpkg.com/react/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom/umd/react-dom.production.min.js"></script>
 
-      <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-    </body>
-    </html>
+  <!-- TinaCMS -->
+  <script src="https://unpkg.com/tinacms/dist/tinacms.min.js"></script>
+
+  <!-- Auth0 SPA SDK -->
+  <script src="https://cdn.auth0.com/js/auth0-spa-js/1.28/auth0-spa-js.production.js"></script>
+
+  <script>
+    (async () => {
+      // Initialize Auth0
+      const auth0 = await createAuth0Client({
+        domain: "dev-ledqz606i2aipjyh.us.auth0.com",        // Replace with your Auth0 domain
+        client_id: "JPeiSOBKOrGZQmKywY8bn9TU2OfXqjwY",  // Replace with your Auth0 client ID
+        redirect_uri: window.location.origin + "/admin/"
+      });
+
+      // Handle redirect after login
+      if (window.location.search.includes("code=") && window.location.search.includes("state=")) {
+        await auth0.handleRedirectCallback();
+        window.history.replaceState({}, document.title, "/admin/");
+      }
+
+      // Login if not authenticated
+      if (!await auth0.isAuthenticated()) {
+        await auth0.loginWithRedirect();
+      }
+
+      // Get JWT token
+      const token = await auth0.getTokenSilently();
+
+      // Initialize TinaCMS
+      const cms = new TinaCMS({
+        sidebar: true,
+        toolbar: true,
+        enabled: true,
+        apiClient: {
+          token: token // pass Auth0 JWT if you plan to use a GitHub proxy
+        }
+      });
+
+      // Mount TinaCMS UI
+      TinaCMS.mount(document.getElementById("tina-root"), cms);
+
+      // Example: you can add content editing logic here
+      console.log("CMS ready! Auth0 token:", token);
+    })();
+  </script>
+
+</body>
+</html>
