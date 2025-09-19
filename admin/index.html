@@ -25,10 +25,20 @@
 
   <script>
     (async () => {
+      // Read Auth0 secrets from Netlify environment variables
+      const auth0Domain = '%AUTH0_DOMAIN%';
+      const auth0ClientId = '%AUTH0_CLIENT_ID%';
+
+      if (!auth0Domain || !auth0ClientId) {
+        document.getElementById("tina-root").innerText = 
+          "Error: Auth0 environment variables not set.";
+        return;
+      }
+
       // Initialize Auth0
       const auth0 = await createAuth0Client({
-        domain: "dev-ledqz606i2aipjyh.auth0.com",        // Replace with your Auth0 domain
-        client_id: "JPeiSOBKOrGZQmKywY8bn9TU2OfXqjwY",  // Replace with your Auth0 client ID
+        domain: auth0Domain,
+        client_id: auth0ClientId,
         redirect_uri: window.location.origin + "/admin/"
       });
 
@@ -41,6 +51,7 @@
       // Login if not authenticated
       if (!await auth0.isAuthenticated()) {
         await auth0.loginWithRedirect();
+        return; // wait for redirect
       }
 
       // Get JWT token
@@ -59,7 +70,6 @@
       // Mount TinaCMS UI
       TinaCMS.mount(document.getElementById("tina-root"), cms);
 
-      // Example: you can add content editing logic here
       console.log("CMS ready! Auth0 token:", token);
     })();
   </script>

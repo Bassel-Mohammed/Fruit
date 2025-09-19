@@ -1,8 +1,6 @@
 backend:
-  name: auth0
-  domain: dev-ledqz606i2aipjyh.us.auth0.com
-  client_id: JPeiSOBKOrGZQmKywY8bn9TU2OfXqjwY
-  branch: main   
+  name: git-gateway  # you can keep git-gateway if you plan to commit to GitHub
+  branch: main       # your branch
 
 media_folder: "assets/uploads"
 public_folder: "/assets/uploads"
