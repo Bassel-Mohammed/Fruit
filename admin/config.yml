@@ -1,7 +1,7 @@
 backend:
   name: git-gateway
-  auth_type: pkce                # use PKCE for OAuth
-  base_url: "https://testforauth.netlify.app"   # where you deployed git-gateway (or your OAuth base)
+  auth_type: pkce
+  base_url: "https://testforauth.netlify.app"  # Git Gateway site
   branch: main
 
 media_folder: "assets/images"

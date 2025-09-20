@@ -10,29 +10,31 @@
   <div id="status"></div>
 
   <script>
-    const status = document.getElementById('status');
-    const script = document.createElement('script');
-    script.src = "https://unpkg.com/decap-cms@^3.8.3/dist/decap-cms.js";
+    document.addEventListener("DOMContentLoaded", function() {
+      const status = document.getElementById('status');
+      const script = document.createElement('script');
+      script.src = "https://unpkg.com/decap-cms@^3.8.3/dist/decap-cms.js";
 
-    script.onload = () => {
-      if (!window.CMS) {
-        status.innerHTML = "CMS script loaded but CMS is undefined!";
-        return;
-      }
-      try {
-        window.CMS.init();
-        status.innerHTML = "CMS loaded successfully!";
-      } catch (err) {
-        status.innerHTML = `CMS.init() error: ${err.message}`;
-        console.error(err);
-      }
-    };
+      script.onload = () => {
+        if (!window.CMS) {
+          status.innerHTML = "CMS script loaded but CMS is undefined!";
+          return;
+        }
+        try {
+          window.CMS.init();
+          status.innerHTML = "CMS loaded successfully!";
+        } catch (err) {
+          status.innerHTML = `CMS.init() error: ${err.message}`;
+          console.error(err);
+        }
+      };
 
-    script.onerror = () => {
-      status.innerHTML = "Failed to load CMS script. Check network or URL.";
-    };
+      script.onerror = () => {
+        status.innerHTML = "Failed to load CMS script. Check network or URL.";
+      };
 
-    document.body.appendChild(script);
+      document.body.appendChild(script);
+    });
   </script>
 </body>
 </html>
