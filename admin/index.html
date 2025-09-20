@@ -1,14 +1,56 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Admin</title>
-  <script src="https://unpkg.com/decap-cms@^2.0.0/dist/umd/index.min.js"></script>
+  <title>Content Manager</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 <body>
+  <h1>Loading CMS…</h1>
+  <div id="status"></div>
+
+  <!-- Load Decap CMS v2 -->
   <script>
-    // Initialize CMS normally; Decap will fetch /admin/config.yml
-    CMS.init();
+    const statusDiv = document.getElementById('status');
+
+    const script = document.createElement('script');
+    script.src = 'https://unpkg.com/decap-cms@^2.0.0/dist/umd/index.min.js';
+
+    script.onload = () => {
+      if (!window.CMS) {
+        statusDiv.innerHTML = '<p style="color:red;">CMS script loaded but CMS object is undefined.</p>';
+        return;
+      }
+
+      try {
+        window.CMS.init();  // Initializes CMS, will fetch /admin/config.yml
+        statusDiv.innerHTML = '<p style="color:green;">CMS loaded successfully. Login via Auth0.</p>';
+      } catch (err) {
+        console.error(err);
+        statusDiv.innerHTML = `<p style="color:red;">Error during CMS.init(): ${err.message}</p>`;
+      }
+
+      // Optional: log network requests for debugging
+      const originalFetch = window.fetch;
+      window.fetch = async (...args) => {
+        try {
+          const response = await originalFetch(...args);
+          if (!response.ok) {
+            statusDiv.innerHTML += `<p style="color:red;">Fetch failed: ${response.url} (status: ${response.status})</p>`;
+          }
+          return response;
+        } catch (e) {
+          statusDiv.innerHTML += `<p style="color:red;">Network error: ${e.message}</p>`;
+          throw e;
+        }
+      };
+    };
+
+    script.onerror = () => {
+      statusDiv.innerHTML = '<p style="color:red;">Failed to load CMS script. Check your internet connection or script URL.</p>';
+    };
+
+    document.body.appendChild(script);
   </script>
 </body>
 </html>
