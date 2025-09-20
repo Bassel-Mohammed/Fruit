@@ -7,8 +7,32 @@
 </head>
 <body>
   <h1>Loading CMS…</h1>
+  <div id="status"></div>
 
-  <!-- Load Decap CMS v2 -->
-  <script src="https://unpkg.com/decap-cms@^3.8.3/dist/umd/index.min.js" onload="window.CMS.init()"></script>
+  <script>
+    const status = document.getElementById('status');
+    const script = document.createElement('script');
+    script.src = "https://unpkg.com/decap-cms@^3.8.3/dist/umd/index.min.js";
+
+    script.onload = () => {
+      if (!window.CMS) {
+        status.innerHTML = "CMS script loaded but CMS is undefined!";
+        return;
+      }
+      try {
+        window.CMS.init();
+        status.innerHTML = "CMS loaded successfully!";
+      } catch (err) {
+        status.innerHTML = `CMS.init() error: ${err.message}`;
+        console.error(err);
+      }
+    };
+
+    script.onerror = () => {
+      status.innerHTML = "Failed to load CMS script. Check network or URL.";
+    };
+
+    document.body.appendChild(script);
+  </script>
 </body>
 </html>
