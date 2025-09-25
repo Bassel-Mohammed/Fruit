@@ -7,7 +7,7 @@ email:
 description:         منشورات و مواضيع متنوعة تساهم في تحسين  حياتك و صحتك
 author:             Afytk                # empty for root deploy
 url:                "https://Bassel-Mohammed.github.io"
-baseurl:            "/AfytkBlog"  
+baseurl:            "AfytkBlog"  
 
 # Social Profiles
 twitter_username:   Aftyk_X
