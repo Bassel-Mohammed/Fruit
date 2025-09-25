@@ -6,7 +6,7 @@ title:              عافيتك
 email:              
 description:         منشورات و مواضيع متنوعة تساهم في تحسين  حياتك و صحتك
 author:             Afytk
-baseurl:            ""                  # empty for root deploy
+baseurl:            "/AfytkBlog"                  # empty for root deploy
 url:                "https://Bassel-Mohammed.github.io"
 
 # Social Profiles
