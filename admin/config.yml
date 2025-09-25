@@ -2,6 +2,7 @@ backend:
   name: github
   repo: Bassel-Mohammed/AfytkBlog   # Your repo name
   branch: main
+  base_url: https://cms-oauth-proxy-two.vercel.app
 
 media_folder: "assets/uploads"   # Where images will be stored in repo
 public_folder: "/assets/uploads"
