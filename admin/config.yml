@@ -1,18 +1,18 @@
 backend:
-  name: git-gateway
-  auth_type: pkce
-  base_url: "https://testforauth.netlify.app"  # Git Gateway site
+  name: github
+  repo: Bassel-Mohammed/AfytkBlog   # Your repo name
   branch: main
 
-media_folder: "assets/images"
-public_folder: "/assets/images"
+media_folder: "assets/uploads"   # Where images will be stored in repo
+public_folder: "/assets/uploads"
 
 collections:
   - name: "posts"
-    label: "Posts"
+    label: "Blog Posts"
     folder: "_posts"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Body",  name: "body",  widget: "markdown"}
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Body", name: "body", widget: "markdown" }

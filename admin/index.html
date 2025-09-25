@@ -1,42 +1,10 @@
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Content Manager</title>
-
-  <!-- Optional: simple status messages -->
-  <style>
-    body { font-family: sans-serif; padding: 2rem; }
-    #status { margin-top: 1rem; color: #d33; }
-  </style>
-
-  <!-- Load Decap CMS v3 with defer -->
-
- 
-  <script defer src="https://unpkg.com/decap-cms@^3.8.3/dist/decap-cms.js"></script>
-  <script defer>
-    const status = document.createElement("div");
-    status.id = "status";
-    document.body.appendChild(status);
-
-    document.addEventListener("DOMContentLoaded", () => {
-      if (!window.CMS) {
-        status.innerText = "CMS script loaded but CMS is undefined!";
-        console.error("CMS undefined");
-        return;
-      }
-      try {
-        CMS.init();
-        status.innerText = "CMS loaded successfully!";
-      } catch (err) {
-        status.innerText = "CMS.init() error: " + err.message;
-        console.error(err);
-      }
-    });
-  </script>
-</head>
-<body>
-  <h1>Loading CMS…</h1>
-</body>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Content Manager</title>
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  </head>
+  <body>
+  </body>
 </html>
