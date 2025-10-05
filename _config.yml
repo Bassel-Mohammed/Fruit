@@ -2,7 +2,7 @@ title:              فواكة مجففة بالتبريد
 description:         بديل السكاكر الصحي
 author:             CandyStore
 url:                "https://Bassel-Mohammed.github.io"
-baseurl:            "Fruit"  
+baseurl:            "/Fruit"  
 
 # Social Profiles
 twitter_username:   Aftyk_X
