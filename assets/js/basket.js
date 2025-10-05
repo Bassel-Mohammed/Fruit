@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
         id: btn.getAttribute("data-id"),
         title: btn.getAttribute("data-title"),
         price: parseFloat(btn.getAttribute("data-price")),
-        image: btn.getAttribute("data-image"),
+        image: "{{ site.baseurl }}" + btn.getAttribute("data-image"),
         qty: qty
       };
 
