@@ -51,8 +51,13 @@ title: سلة المشتريات
 
     let total = 0;
     basket.forEach((item, index) => {
-      // Fix image path dynamically
-      let imagePath = item.image.startsWith("http") ? item.image : BASE_URL + item.image;
+      let imagePath = item.image;
+
+      // Prepend BASE_URL if path starts with "/" (root images)
+      if (imagePath.startsWith("/")) {
+        imagePath = BASE_URL + imagePath;
+      }
+
       total += item.price * item.qty;
 
       basketDiv.innerHTML += `
@@ -116,7 +121,6 @@ title: سلة المشتريات
       message += `\nالإجمالي: $${total.toFixed(2)}`;
 
       const encodedMessage = encodeURIComponent(message);
-
       const whatsappNumber = "960790000"; 
       const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
 
@@ -128,6 +132,7 @@ title: سلة المشتريات
     });
   });
 </script>
+
 
 
 </body>
