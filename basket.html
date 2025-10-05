@@ -34,9 +34,6 @@ title: سلة المشتريات
 {% include scripts.html %}
 
 <script>
-  // Base URL for GitHub Pages
-  const BASE_URL = "{{ site.baseurl }}"; // becomes "/Fruit"
-
   function renderBasket() {
     let basket = JSON.parse(localStorage.getItem("basket")) || [];
     let basketDiv = document.getElementById("basket-items");
@@ -51,22 +48,12 @@ title: سلة المشتريات
 
     let total = 0;
     basket.forEach((item, index) => {
-      let imagePath = item.image;
-
-      // Prepend BASE_URL if path starts with "/" (root images)
-      if (imagePath.startsWith("/")) {
-        imagePath = BASE_URL + imagePath;
-      }
-
       total += item.price * item.qty;
 
       basketDiv.innerHTML += `
         <div class="card mb-3 p-3">
           <div class="row align-items-center">
-            <div class="col-md-2">
-              <img src="${imagePath}" alt="${item.title}" class="img-fluid rounded">
-            </div>
-            <div class="col-md-6 basket-product-description">
+            <div class="col-md-8 basket-product-description">
               <h5>${item.title}</h5>
               <p>السعر: $${item.price.toFixed(2)}</p>
               <p>الكمية: ${item.qty}</p>
@@ -132,8 +119,6 @@ title: سلة المشتريات
     });
   });
 </script>
-
-
 
 </body>
 </html>
