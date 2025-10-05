@@ -1,49 +1,21 @@
-include:
-  - admin
-
-
-title:              عافيتك
-email:              
-description:         منشورات و مواضيع متنوعة تساهم في تحسين  حياتك و صحتك
-author:             Afytk                # empty for root deploy
+title:              فواكة مجففة بالتبريد
+description:         بديل السكاكر الصحي
+author:             CandyStore
 url:                "https://Bassel-Mohammed.github.io"
-baseurl:            "AfytkBlog"  
+baseurl:            ""  
 
 # Social Profiles
 twitter_username:   Aftyk_X
-github_username:    
-facebook_username:  
 instagram_username:  Afytk_IG
-linkedin_username:
-
-# Google Analytics
-google_analytics:   G-7JWPV278TJ
 
 # Build settings
-markdown:           kramdown
-paginate:           5
-paginate_path:      "/posts/page:num/"
+markdown: kramdown
 plugins:
   - jekyll-feed
-  - jekyll-paginate
   - jekyll-sitemap
 
-
-# Social Profiles
-twitter_username:   Aftyk_X
-github_username:    
-facebook_username:  
-instagram_username:  Afytk_IG
-linkedin_username:
-
-# Add your google-analytics ID here to activate google analytics
-google_analytics:   G-7JWPV278TJ # out your google-analytics code
-
-# Build settings
-markdown:           kramdown
-paginate:           5
-paginate_path:      "/posts/page:num/"
-plugins:
-  - jekyll-feed
-  - jekyll-paginate
-  - jekyll-sitemap ## Uncomment this line to silently generate a sitemaps.org compliant sitemap for your Jekyll site
+# Products collection
+collections:
+  products:
+    output: true
+    permalink: /products/:title/

@@ -1,83 +1,50 @@
 ---
 layout: default
+
+
 ---
 
 <!-- Page Header -->
 {% if page.background %}
 <header class="masthead" style="background-image: url('{{ page.background | prepend: site.baseurl | replace: '//', '/' }}')">
-  {% else %}
-  <header class="masthead">
-    {% endif %}
-    <div class="overlay"></div>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <div class="page-heading">
-            <h1>{{ site.title }}</h1>
-            {% if site.description %}
-            <span class="subheading">{{ site.description }}</span>
-            {% endif %}
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-
+{% else %}
+<header class="masthead">
+{% endif %}
+  <div class="overlay"></div>
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
-
-        {{ content }}
-
-        <!-- Home Post List -->
-        {% for post in site.posts limit : 5 %}
-
-       <article class="post-preview" style="display:flex; align-items:flex-start; gap:15px;">
-  
-  {% if post.image %}
-  <div class="post-image">
-    <a href="{{ post.url | prepend: site.baseurl | replace: '//', '/' }}">
-      <img
-        src="{{ post.image | prepend: site.baseurl | replace: '//', '/' }}"
-        alt="{{ post.title }}"
-        style="max-width:150px; height:auto; border-radius:6px;"
-      >
-    </a>
-  </div>
-  {% endif %}
-
-  <!-- Keep titles & meta exactly as your CSS expects -->
-  <div class="post-text">
-    <a href="{{ post.url | relative_url }}">
-      <h2 class="post-title">{{ post.title }}</h2>
-      {% if post.subtitle %}
-        <h3 class="post-subtitle">{{ post.subtitle }}</h3>
-      {% else %}
-        <h3 class="post-subtitle">{{ post.excerpt | strip_html | truncatewords: 15 }}</h3>
-      {% endif %}
-    </a>
-    <p class="post-meta">Posted by
-      {% if post.author %}
-        {{ post.author }}
-      {% else %}
-        {{ site.author }}
-      {% endif %}
-      on {{ post.date | date: '%B %d, %Y' }} &middot; {% include read_time.html content=post.content %}
-    </p>
-  </div>
-
-</article>
-
-
-        <hr>
-
-        {% endfor %}
-
-        <!-- Pager -->
-        <div class="clearfix">
-          <a class="btn  float-right" href="{{"/posts" | relative_url }}">جميع المنشورات &rarr;</a>
+        <div class="page-heading">
+          <h1>{{ site.title }}</h1>
+          {% if site.description %}
+          <span class="subheading">{{ site.description }}</span>
+          {% endif %}
         </div>
-
       </div>
     </div>
   </div>
+</header>
+
+<div class="container">
+  <h1>المنتجات</h1>
+  <div class="row">
+    {% for product in site.products %}
+    <div class="col-6 col-sm-6 col-md-4 mb-4">
+      <div class="product-item card h-100">
+        <a href="{{ product.url | relative_url }}">
+          {% if product.image %}
+          <div class="text-center">
+          <img class="card-img-top" src="{{ product.image | prepend: site.baseurl | replace: '//', '/' }}" alt="{{ product.title }}">
+         </div>
+          
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title">{{ product.title }}</h5>
+            <p class="card-text">${{ product.price }}</p>
+          </div>
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>

@@ -3,10 +3,12 @@ header.masthead {
     // TIP: Background images are set within the HTML using inline CSS!
     margin-bottom: 50px;
     background: no-repeat center center;
-    background-color: #82b443;
+    background-color: #FFACAC;
     background-attachment: scroll;
     position: relative;
     background-size: cover;
+    
+    ;
 
     .overlay {
         position: absolute;
@@ -21,7 +23,7 @@ header.masthead {
     .post-heading,
     .site-heading {
         padding: 200px 0 150px;
-        color: white;
+        color: #F564A9;
 
         @media only screen and (min-width: 768px) {
             padding: 200px 0;
@@ -30,7 +32,7 @@ header.masthead {
 
     .page-heading,
     .site-heading {
-        text-align: center;
+        text-align: right;
 
         h1 {
             font-size: 50px;
